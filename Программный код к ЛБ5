@@ -1,0 +1,87 @@
+_______________________
+Калькулятор:
+_______________________
+# Базовые арифметические операции
+print("введите первое число: ")
+a = input("")
+print("введите второе число: ")
+aint = int(a)
+
+b = input("")
+bint = int(b)
+print("                   ")
+z = print("Выберите операцию: ")
+z1 = input("")
+
+
+if z1 == '+':
+
+  print (aint + bint)
+
+if z1 == '-':
+
+ print (aint - bint)
+
+if z1 == '*':
+
+ print (aint * bint)
+
+if z1 == '/':
+
+  print (aint / bin)
+
+
+
+_______________________
+генератор паролей:
+_______________________
+import random
+import string
+
+def generate_password(length, use_letters, use_digits, use_special):
+    letters = string.ascii_letters
+    digits = string.digits
+    special = '!@#$%^&*()-_=+[]{}|;:,.<>?/`~'
+    characters = ''
+    if use_letters:
+        characters += letters
+    if use_digits:
+        characters += digits
+    if use_special:
+        characters += special
+    if not characters:
+        raise ValueError("Выберите хотя бы один тип символов!")
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+def check_password_strength(password):
+    length_ok = len(password) >= 8
+    has_lower = any(c.islower() for c in password)
+    has_upper = any(c.isupper() for c in password)
+    has_digit = any(c.isdigit() for c in password)
+    special_chars = '!@#$%^&*()-_=+[]{}|;:,.<>?/`~'
+    has_special = any(c in special_chars for c in password)
+    score = sum([length_ok, has_lower and has_upper, has_digit, has_special])
+    if score == 4:
+        return "Очень сильный"
+    elif score == 3:
+        return "Сильный"
+    elif score == 2:
+        return "Средний"
+    else:
+        return "Слабый"
+def main():
+    length = int(input("Введите длину пароля (Минимум 8 и выше): "))
+    count = int(input("Сколько паролей сгенерировать? "))
+    use_letters = input("Использовать буквы? (y/n): ").strip().lower() == 'y'
+    use_digits = input("Использовать цифры? (y/n): ").strip().lower() == 'y'
+    use_special = input("Использовать спецсимволы? (y/n): ").strip().lower() == 'y'
+    if not (use_letters or use_digits or use_special):
+        print("Ошибка: нужно выбрать минимум один тип символов.")
+        return
+    print("\nСгенерированные пароли:")
+    for i in range(count):
+        pwd = generate_password(length, use_letters, use_digits, use_special)
+        strength = check_password_strength(pwd)
+        print(f"{i+1}: {pwd}  —  Сложность: {strength}")
+if __name__ == "__main__":
+    main()
